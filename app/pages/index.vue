@@ -49,7 +49,7 @@ const items = computed(() => [
     checked: order.value === 'asc',
     type: 'checkbox' as const,
     onUpdateChecked(checked: boolean) {
-      if(!checked) return 
+      if (!checked) return
       order.value = 'asc'
     },
     onSelect(e: Event) {
@@ -61,7 +61,7 @@ const items = computed(() => [
     checked: order.value === 'desc',
     type: 'checkbox' as const,
     onUpdateChecked(checked: boolean) {
-      if(!checked) return
+      if (!checked) return
       order.value = 'desc'
     },
     onSelect(e: Event) {
@@ -141,29 +141,32 @@ const orderedPrs = computed(() => {
       <USeparator class="mt-2 sm:mt-6 mb-6 sm:mb-10 w-1/2 mx-auto animate-pulse" />
     </div>
 
-    <div class="flex justify-end">
-      <UDropdownMenu
-        :items="items"
-        :content="{
-          align: 'start',
-          side: 'bottom',
-          sideOffset: 8,
-        }"
-        :ui="{
-          content: 'w-48',
-        }"
-      >
-        <UButton
-          :label="orderKey === 'star' ? 'Stars': order === 'asc' ? 'Oldset': 'Newset'"
-          :icon="order === 'asc' ? 'i-lucide-arrow-up-narrow-wide': 'i-lucide-arrow-down-narrow-wide' "
-          color="neutral"
-          variant="outline"
-        />
-      </UDropdownMenu>
-    </div>
-
-    <div class="flex flex-col gap-6 mt-5 sm:gap-10">
-      <PullRequest v-for="pr of orderedPrs" :key="pr.url" :data="pr" />
+    <div class="relative">
+      <div class="flex justify-end absolute -top-10 lg:-top-12 right-0">
+        <UDropdownMenu
+          :items="items"
+          :content="{
+            align: 'start',
+            side: 'bottom',
+            sideOffset: 8,
+          }"
+          :ui="{
+            content: 'w-48',
+          }"
+          size="xs"
+        >
+          <UButton
+            :label="orderKey === 'star' ? 'Stars': order === 'asc' ? 'Oldset': 'Newset'"
+            :icon="order === 'asc' ? 'i-lucide-arrow-up-narrow-wide': 'i-lucide-arrow-down-narrow-wide' "
+            color="neutral"
+            variant="soft"
+            size="xs"
+          />
+        </UDropdownMenu>
+      </div>
+      <div class="flex flex-col gap-6 mt-5 sm:gap-10">
+        <PullRequest v-for="pr of orderedPrs" :key="pr.url" :data="pr" />
+      </div>
     </div>
   </UContainer>
 </template>
